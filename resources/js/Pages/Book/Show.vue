@@ -53,6 +53,19 @@ let props = defineProps({
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="my-shadow rounded-xl grid center-container w-full gap-5 p-5 my-5 " >
+            <div class="text-center grid gap-5" v-if="book.isBorrowed">
+                <p class="text-center">{{ isEn ? "Pending":"بانتظار الموافقة" }}</p>
+                <Link :href="route('orders.destroy',book.id)" method="delete" class="justify-self-center" preserve-scroll>
+                    <PrimaryButton class="bg-red-600">{{  $page.props.isEn ? "Cancel" : "الغاء"  }}</PrimaryButton>
+                </Link>
+            </div>
+            <Link :href="route('orders.store',book.id)" method="post" class="justify-self-center" v-else preserve-scroll>
+                <PrimaryButton class="">{{  $page.props.isEn ? "Borrow" : "استعارة"  }}</PrimaryButton>
+            </Link>
+        </div>
+    </div>
 </template>
 <style>
 </style>

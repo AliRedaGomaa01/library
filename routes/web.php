@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagController;
 use Illuminate\Foundation\Application;
@@ -15,6 +16,9 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
 
 Route::middleware('auth')->group(function () {
     
@@ -35,16 +39,23 @@ Route::middleware('auth')->group(function () {
     Route::controller(TagController::class)->prefix('tags')->name('tags.')->group(function () {
         Route::get('/', 'index')->withoutMiddleware('auth')->name('index');
         Route::get('/create', 'create')->name('create');
+        Route::get('/', 'index')->withoutMiddleware('auth')->name('index');
         Route::post('/', 'store')->name('store');
         Route::delete('/{tag}', 'destroy')->name('destroy');
     });
 
-});
+    Route::controller(OrderController::class)->prefix('orders')->name('orders.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/{book:id}/{type?}', 'store')->name('store');
+        Route::patch('/{order:id}/reverse', 'reverse')->name('reverse');
+        Route::patch('/{order}/{status}', 'update')->name('update');
+        Route::delete('/{book:id}', 'destroy')->name('destroy');
+        Route::get('/pending', 'pending')->name('pending');
+        Route::get('/rejected', 'rejected')->name('rejected');
+        Route::get('/borrowed', 'borrowed')->name('borrowed');
+        Route::get('/reversed', 'reversed')->name('reversed');
+    });
 
-require __DIR__.'/auth.php';
-
-Route::controller(BookController::class)->prefix('books')->name('books.')->group(function () {
-    Route::get('/', 'index')->name('index');
 });
 
 

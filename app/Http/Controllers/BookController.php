@@ -99,6 +99,8 @@ class BookController extends Controller
     public function show(Book $book)
     {
         $book->load(['tags','images']);
+        $query = auth()->user()->orders()->where('book_id', $book->id);
+        $book->isBorrowed = $query->where('status', 'pending')->count() > 0;
         return inertia('Book/Show', compact('book'));
     }
 
