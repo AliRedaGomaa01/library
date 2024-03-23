@@ -45,4 +45,18 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+    public function borrowedBooks()
+    {
+        return $this->belongsToMany(Book::class, 'orders', 'user_id', 'book_id')->wherePivot('is_reversed', 0)->wherePivot('status', 'accepted');
+    }
+
+    public function reversedBooks()
+    {
+        return $this->belongsToMany(Book::class, 'orders', 'user_id', 'book_id')->wherePivot('is_reversed', 1)->wherePivot('status', 'accepted');
+    }
 }

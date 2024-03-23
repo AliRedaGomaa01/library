@@ -68,6 +68,8 @@ let tagSubmit = (e) => {
     <div class="container">
         <form @submit.prevent="tagSubmit">
             <div class="grid gap-5 m-5 p-5 my-shadow rounded-xl center-container">
+                <h3 class="text-center">{{ isEn ? "Add Tag" : "اضافة سمة" }}</h3>
+                <div class="bg-main h-[4px] w-full"></div>
                 <!-- name -->
                 <div class="grid gap-5">
                     <label for="name">{{ isEn ? "Name" : "الاسم" }}</label>
@@ -82,6 +84,9 @@ let tagSubmit = (e) => {
     <div class="container">
         <form @submit.prevent="submit">
             <div class="grid gap-5 m-5 p-5 my-shadow rounded-xl center-container">
+                <h3 class="text-center">{{ isEn ? "Add Book" : "اضافة كتاب" }}</h3>
+                <div class="bg-main h-[4px] w-full"></div>
+
                 <!-- tags -->
                 <label for="tags">{{ isEn ? "Tags" : "العلامات" }}</label>
                 <select name="tags" id="tags" class="text-center" v-model="form.tags" multiple>

@@ -14,7 +14,12 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        if(request()->is('api/*')){
+            $books = Book::latest()->get()->toArray();
+            return response()->json(['status'=>true,'books'=>$books]);
+        }
+        $books = Book::with('tags')->orderBy('id', 'desc')->paginate(15)->toArray();
+        return inertia('Book/Index', compact('books'));
     }
 
     /**
@@ -22,6 +27,7 @@ class BookController extends Controller
      */
     public function create()
     {
+        abort_unless(auth()->user()->is_admin, 403);
         $tags = Tag::pluck('name', 'id')->toArray();
         return inertia('Book/Create', compact('tags'));
     }
@@ -31,6 +37,7 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
+        abort_unless(auth()->user()->is_admin, 403);
         $validated = $request->validate([
             'tags.*'  => ['required','exists:tags,id'],
             'titleAr' => ['required', 'string', 'max:255'],
@@ -46,8 +53,8 @@ class BookController extends Controller
             DB::beginTransaction();
             //  saving book
             $book = new Book();
-            $book->title = json_encode(['en' => $validated['titleEn'], 'ar' => $validated['titleAr']]);
-            $book->description = json_encode(['en' => $validated['descriptionEn'], 'ar' => $validated['descriptionAr']]);
+            $book->title = ['en' => $validated['titleEn'], 'ar' => $validated['titleAr']];
+            $book->description = ['en' => $validated['descriptionEn'], 'ar' => $validated['descriptionAr']];
             $book->author = $validated['author'];
             $book->isbn = $validated['isbn'];
             if ($request->hasFile('pdfFile')) {
@@ -91,7 +98,8 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        $book->load(['tags','images']);
+        return inertia('Book/Show', compact('book'));
     }
 
     /**

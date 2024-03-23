@@ -25,7 +25,7 @@ watchEffect(() => {
     <!-- main nav -->
     <div class="w-full py-4 grid grid-cols-2 sm:grid-cols-4  it-ce shadow-[0px_3px_6px_0px_rgb(0,0,0,0.1)] text-center">
         <Link :href="langRoute" class="nav-item" :preserve-scroll="true" :preserve-state="true" >{{ $page.props.isEn ? "عربي" : "English"  }}</Link>
-        <Link :href="route('landing')" class="nav-item" :class="currentRouteName == 'landing' ? 'active' : ''" >{{ $page.props.isEn ? "Home" : "الرئيسية" }}</Link>
+        <Link :href="route('landing')" class="nav-item" :class="currentRouteName == 'landing' || currentRouteName == 'books.index' ? 'active' : ''" >{{ $page.props.isEn ? "Home" : "الرئيسية" }}</Link>
         <Link :href="route('login')" class="nav-item" :class="currentRouteName == 'login' ? 'active' : ''" v-if="!isAuthenticated">{{ $page.props.isEn ? "Login" : "تسجيل الدخول"  }}</Link>
         <Link :href="route('register')" class="nav-item" :class="currentRouteName == 'register' ? 'active' : ''" v-if="!isAuthenticated">{{ $page.props.isEn ?  "Register" : "تسجيل جديد" }}</Link>
         <Link :href="route('profile.edit')" class="nav-item" :class="currentRouteName == 'profile.edit' ? 'active' : ''" v-if="isAuthenticated">{{ $page.props.isEn ? "Profile" : "الملف الشخصي"  }}</Link>

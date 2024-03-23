@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return inertia('Landing');
+    // return inertia('Landing');
+    return to_route('books.index');
 })->name('landing');
 
 Route::get('/dashboard', function () {
