@@ -34,11 +34,24 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
+                'check' => auth()->check(),
+                'id' => auth()->id(),
+                'isAdmin' => auth()->check() && auth()->user()->is_admin,
+            ],
+            'flash' => [
+                'success' => session('success'),
             ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
+            'isEn' => app()->isLocale('en'),
+            'lang' => app()->currentLocale(),
+            'appUrl' => asset('/'),
+            'storageUrl' => asset('/storage'),
+            'langRoute' =>  app()->isLocale('ar') ?  $request->url().'?locale='.'en' : $request->url().'?locale='.'ar'  ,
+            'routeName' => $request->route() ? $request->route()->getName() : null,
+            'routeUrl' => $request->url(),
         ];
     }
 }

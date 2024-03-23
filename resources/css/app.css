@@ -1,3 +1,46 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    h1 {
+        @apply text-3xl;
+    }
+    h3 {
+        @apply text-xl font-[400];
+    }
+    input[name], input[type], textarea[cols], select[name] {
+        @apply border-2 border-main outline-main rounded-lg
+    }
+}
+
+@layer components {
+    .it-ce {
+        @apply justify-items-center items-center;
+    }
+
+    .co-ce {
+        @apply justify-center content-center;
+    }
+
+    .my-shadow {
+        @apply shadow-[3px_3px_6px_0px_rgb(0,0,0,0.1),-3px_-3px_6px_0px_rgb(0,0,0,0.1)];
+    }
+
+    .container {
+        @apply w-[80vw] sm:w-[70vw] md:w-[60vw] mx-auto grid gap-4
+    }
+
+    .center-container {
+        @apply w-[90%] justify-self-center
+    }
+
+    .nav-item {
+        @apply px-4 py-2 
+    }
+
+    .active {
+        @apply bg-main rounded-xl text-white
+    }
+
+}

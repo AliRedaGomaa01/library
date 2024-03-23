@@ -13,12 +13,8 @@ let isEn = computed(() => usePage().props.lang == 'en');
             <AppHeader />
         </header>
 
-        <main class="grid items-center self-center p-5 ">
-            <div
-                class="mx-auto my-6 px-6 py-4 bg-white sm:w-[30rem] my-shadow rounded-lg"
-            >
-                <slot />
-            </div>
+        <main class="grid items-center self-center p-5 h-[50vh] w-[50vw] it-ce mx-auto">
+            <div class="text-3xl">Coming Soon</div>
         </main>
 
         <footer class="grid self-end">
