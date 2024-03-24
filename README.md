@@ -1,4 +1,8 @@
 <h1 style="text-align: center">Library Task</h1>
+<h3>It's a task by Midade Software Company.</h3>
+<hr>
+<h2>Details:</h2>
+<p>Our app is library management system, user can borrow book from it.</p>
 <hr>
 <h2>User:</h2>
 <ul>
